@@ -149,6 +149,21 @@ services:
       '
     networks:
       - app-network
+    
+  mongo-restore:
+    image: mongo:8
+    container_name: mongo-restore
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./mongodb-dumps:/dump
+    command: >
+      mongorestore --drop --objcheck --uri="mongodb://mongodb:27017" --dir=dump
+    networks:
+      - app-network
+    restart: 
+      on-failure
 
 volumes:
   mongo:
