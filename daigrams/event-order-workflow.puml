@@ -1,0 +1,22 @@
+@startuml
+
+actor User
+
+participant "Event Service" as EventService
+participant "Order Service" as OrderService
+participant "RabbitMQ Broker" as RabbitMQ
+participant "Transaction Service" as TransactionService
+participant "Database" as Database
+
+User -> EventService : Create Event
+note right of EventService : Event details are saved
+
+User -> OrderService : Place Order (number of tickets)
+OrderService -> RabbitMQ : Emit Order Message
+note right of RabbitMQ : Message is queued
+
+RabbitMQ -> TransactionService : Deliver Order Message
+TransactionService -> Database : Process Transaction and Record
+note right of Database : Transaction recorded successfully
+
+@enduml
