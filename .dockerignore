@@ -1,0 +1,56 @@
+# Docker Files
+dockerfile
+.dockerignore
+
+# Github Files
+.git
+.github
+.gitignore
+.gitkeep
+
+# IDE
+.vscode
+.idea
+
+# OS generated Files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# Flask
+instance
+.webassets-cache
+
+# Docs
+doc
+*.md
+!**/nestjs-corporate/docs
+
+# Build
+out
+dist
+*.tsbuildinfo
+
+# Node Modules
+node_modules
+
+# Tests
+test
+coverage
+
+# Environment Variables
+.env*
+*.pem
+venv
+
+# Logs
+logs
+*.log
+
+# Misc
+eslintrc.js
+.prettierrc

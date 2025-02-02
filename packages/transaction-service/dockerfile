@@ -1,0 +1,51 @@
+###################
+# BUILD FOR PRODUCTION
+###################
+
+FROM node:lts-alpine as build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json to take advantage of cached Docker layers
+COPY package*.json ./
+
+# Conditionally Install all dependencies
+RUN npm ci --omit=dev --ingore-scripts --prefer-offline --legacy-peer-deps
+
+# Install NestJS CLI
+RUN npm install -g @nestjs/cli
+
+# Copy the entire application source code
+COPY . .
+
+# Build project
+RUN npm run build
+
+# Remove TypeScript declaration files
+RUN find dist -name '*.d.ts' -type f -delete
+
+# Use the node user (instead of the root user)
+USER node
+
+###################
+# PRODUCTION
+###################
+
+# Use a clean, official Node.js image for the production stage
+FROM node:lts-alpine
+
+# Set the working directory in the production image
+WORKDIR /app
+
+# Copy the built code from the build stage and necessary files
+COPY --from=build /app/dist ./
+
+# Copy the production node_modules
+COPY --from=build /app/node_modules ./node_modules
+
+# Copy the package.json for ESM
+COPY --from=build /app/package.json ./
+
+# Run the app
+CMD ["node", "main.js"]

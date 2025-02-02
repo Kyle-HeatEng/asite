@@ -1,6 +1,6 @@
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Date, HydratedDocument } from 'mongoose';
+import { Transaction } from './transaction.schema';
 
 export type EventDocument = HydratedDocument<Event>;
 
@@ -37,3 +37,4 @@ export class Event {
 
 export const EventSchema = SchemaFactory.createForClass(Event);
 
+export type EventWithTransactions = Event & { transactions: Transaction[] ; month: number; year: number; };

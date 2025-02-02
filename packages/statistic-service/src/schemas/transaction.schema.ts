@@ -18,7 +18,7 @@ export class Transaction {
     required: true,
     index: true,
     type: Types.ObjectId,
-    ref: 'events'
+    ref: 'events',
   })
   event: Types.ObjectId;
 

@@ -86,7 +86,7 @@ export class OrderService {
     do {
       const { transactions, hasNext: hNext } = await this.getTransaction({
         eventId,
-        status: 'success',
+        status: 'succeeded',
         page,
       });
 
@@ -112,7 +112,7 @@ export class OrderService {
     page,
   }: {
     eventId: string;
-    status: 'success' | 'failed' | 'pending';
+    status: 'succeeded' | 'failed' | 'pending';
     page: number;
   }) {
     try {

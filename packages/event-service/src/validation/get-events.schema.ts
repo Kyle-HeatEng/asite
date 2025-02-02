@@ -14,7 +14,7 @@ export const GetEventsQuerySchema = z.object({
   direction: z
     .string()
     .optional()
-    .transform((val) => (val === '-1' ? -1 : 1)) // Default to 1 if not provided
+    .transform((val) => (val === '-1' ? -1 : 1)) 
     .refine((val) => val === 1 || val === -1, {
       message: 'Direction must be 1 or -1',
     }),
