@@ -25,7 +25,6 @@ export class EventController {
     name: 'search',
     required: false,
     type: String,
-    example: 'NestJS',
   })
   @ApiQuery({ name: 'sort', required: false, type: String, example: 'date' })
   @ApiQuery({

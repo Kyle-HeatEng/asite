@@ -60,7 +60,6 @@ export class TransactionController {
     name: 'search',
     required: false,
     type: 'string',
-    example: 'customer@example.com',
     description: 'Search by customer email',
   })
   @ApiQuery({

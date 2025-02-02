@@ -43,6 +43,17 @@ export class OrderService {
       });
     }
 
+    //@ts-ignore
+    const eventHasPassed = new Date() > new Date(event.date);
+    if (eventHasPassed) {
+      this.logger.error(`[CREATE] Event ${event._id} has already passed`);
+      throw new ConflictException({
+        statusCode: 409,
+        message: 'Event has already passed',
+        error: 'Conflict',
+      });
+    }
+
     const order = {
       id: randomUUID(),
       status: 'placed',
